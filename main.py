@@ -75,8 +75,10 @@ def choose():
         musique4 = random.choice(chansons)
         album1 = random.choice(albums)
         album2 = random.choice(albums)
-        nbr1 = str(random.randint(1,25))
-        nbr2 = str(random.randint(1,25))
+        film1 = random.choice(films)
+        film2 = random.choice(films)
+        film3 = random.choice(films)
+        film4 = random.choice(films)
 
         tweet = random.choice(tweetdivers).format(yt1 = yt1,
                                                   yt2 = yt2,
@@ -104,8 +106,10 @@ def choose():
                                                   musique4 = musique4,
                                                   album1=album1,
                                                   album2=album2,
-                                                  nbr1 = nbr1,
-                                                  nbr2 = nbr2)
+                                                  film1=film1,
+                                                  film2=film2,
+                                                  film3=film3,
+                                                  film4=film4)
         twt = client.create_tweet(text=tweet)
         print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
         print(tweet)
