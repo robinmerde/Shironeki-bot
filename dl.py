@@ -18,4 +18,4 @@ client = tweepy.Client(consumer_key=CONSUMER_KEY,
                        access_token=ACCESS_KEY,
                        access_token_secret=ACCESS_SECRET)
 
-client.create_tweet(text="Vous savez où on peut trouver un studio d'enregistrement à Jerusalem ?")
+client.create_tweet(text="le dernier single de Laylow, mozart pleurerait si il écoutait cela.")
