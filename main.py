@@ -3,15 +3,16 @@ import random
 import time
 import tweepy
 import os
+import datetime
 
 # Importer les tokens de l'API
 
 CREDENTIALS = json.loads(open('Q:\home\pi\Documents\Shironeutron-credentials\credentials.json', encoding='utf-8').read())
 
 CONSUMER_KEY = CREDENTIALS['key']
-CONSUMER_SECRET = CREDENTIALS['secret_key']
+CONSUMER_SECRET = CREDENTIALS['key_secret']
 ACCESS_KEY = CREDENTIALS['token']
-ACCESS_SECRET = CREDENTIALS['secret_token']
+ACCESS_SECRET = CREDENTIALS['token_secret']
 
 auth = tweepy.OAuthHandler(
     consumer_key=CONSUMER_KEY,
@@ -52,14 +53,63 @@ tweetdivers = json.loads(open('tweetdivers.json', encoding='utf-8').read())
 
 odds = ['tweet', 'screen']
 
+def imgs(tweet,object):
+    # Tweets avec images (rappeurs)
+        mamapizza = globals()
+        mamapizza[object+'1'] = mamapizza[object+'1'].lower() + '.png'
+        mamapizza[object+'2'] = mamapizza[object+'2'].lower() + '.png'
+        mamapizza[object+'3'] = mamapizza[object+'3'].lower() + '.png'
+        mamapizza[object+'4'] = mamapizza[object+'4'].lower() + '.png'
+        filenames = []
+        global upl
+        # Mettre le nom de chaque rappeur dans la liste filenames
+        print(tweet)
+
+        if rawtweet.count(object + '4') >= 1:
+            for i in range(1,5):
+                filenames.append(mamapizza[object + str(i)])
+
+        elif rawtweet.count(object + '3') >= 1:
+            for i in range(1,4):
+                filenames.append(mamapizza[object + str(i)])
+
+        elif rawtweet.count(object + '2') >= 1:
+            for i in range(1,3):
+                filenames.append(mamapizza[object + str(i)])
+
+        elif rawtweet.count(object +'1') >= 1:
+            filenames = mamapizza[object + '1']
+        else:
+            pass
+
+        media_ids = []
+        path = './' + object + '/'
+
+        if rawtweet.count(object + '1') >= 1:
+            if rawtweet.count(object + '2') >= 1:
+                print(filenames)
+                for filename in filenames:
+                    print(path + filename)
+                    upl = API.media_upload(filename='temp', file=open(path + filename, 'rb'))
+                    media_ids.append(upl.media_id)
+                    time.sleep(0.1)
+            else:
+                upl = API.media_upload(filename='temp',file=open(path + mamapizza[object+'1'], 'rb'))
+                media_ids = [upl.media_id]
+                print(media_ids)
+            client.create_tweet(text=tweet, media_ids=media_ids)
+            
+            return True
+        else:
+            return False
 
 def choose():
-    choix = random.choices(odds, weights=(100,10))
+    choix = random.choices(odds, weights=(100,5))
     print(choix[0])
 
     if choix[0] == 'tweet':
         #   Randomisation des objets
-
+        global rawtweet, rappeur1, rappeur2, rappeur3, rappeur4
         yt1 = random.choice(youtubeurs)
         yt2 = random.choice(youtubeurs)
         yt3 = random.choice(youtubeurs)
@@ -104,103 +154,69 @@ def choose():
         persomanga2 = random.choice(persosmangas)
         persomanga3 = random.choice(persosmangas)
         persomanga4 = random.choice(persosmangas)
-
+        imgpersomanga1 = random.choice(persosmangas)
+        imgpersomanga2 = random.choice(persosmangas)
+        imgpersomanga3 = random.choice(persosmangas)
+        imgpersomanga4 = random.choice(persosmangas)
+        
 
         # Creation du tweet
+        rawtweet = random.choice(tweetdivers)
+        tweet = rawtweet.format(yt1 = yt1,
+            yt2 = yt2,
+            yt3 = yt3,
+            yt4 = yt4,
+            ville1 = ville1,
+            ville2 = ville2,
+            ville3 = ville3,
+            ville4 = ville4,
+            rappeur1 = rappeur1,
+            rappeur2 = rappeur2,
+            rappeur3 = rappeur3,
+            rappeur4 = rappeur4,
+            twittos1 = twittos1,
+            twittos2 = twittos2,
+            twittos3 = twittos3,
+            twittos4 = twittos4,
+            streamer1 = streamer1,
+            streamer2 = streamer2,
+            streamer3 = streamer3,
+            streamer4 = streamer4,
+            musique1 = musique1,
+            musique2 = musique2,
+            musique3 = musique3,
+            musique4 = musique4,
+            album1 = album1,
+            album2 = album2,
+            album3 = album3,
+            album4 = album4,
+            film1 = film1,
+            film2 = film2,
+            film3 = film3,
+            film4 = film4,
+            serie1 = serie1,
+            serie2 = serie2,
+            serie3 = serie3,
+            serie4 = serie4,
+            manga1 = manga1,
+            manga2 = manga2,
+            manga3 = manga3,
+            manga4 = manga4,
+            persomanga1 = persomanga1,
+            persomanga2 = persomanga2,
+            persomanga3 = persomanga3,
+            persomanga4 = persomanga4)
 
-        tweet = random.choice(tweetdivers).format(yt1 = yt1,
-    yt2 = yt2,
-    yt3 = yt3,
-    yt4 = yt4,
-    ville1 = ville1,
-    ville2 = ville2,
-    ville3 = ville3,
-    ville4 = ville4,
-    rappeur1 = rappeur1,
-    rappeur2 = rappeur2,
-    rappeur3 = rappeur3,
-    rappeur4 = rappeur4,
-    twittos1 = twittos1,
-    twittos2 = twittos2,
-    twittos3 = twittos3,
-    twittos4 = twittos4,
-    streamer1 = streamer1,
-    streamer2 = streamer2,
-    streamer3 = streamer3,
-    streamer4 = streamer4,
-    musique1 = musique1,
-    musique2 = musique2,
-    musique3 = musique3,
-    musique4 = musique4,
-    album1 = album1,
-    album2 = album2,
-    album3 = album3,
-    album4 = album4,
-    film1 = film1,
-    film2 = film2,
-    film3 = film3,
-    film4 = film4,
-    serie1 = serie1,
-    serie2 = serie2,
-    serie3 = serie3,
-    serie4 = serie4,
-    manga1 = manga1,
-    manga2 = manga2,
-    manga3 = manga3,
-    manga4 = manga4,
-    persomanga1 = persomanga1,
-    persomanga2 = persomanga2,
-    persomanga3 = persomanga3,
-    persomanga4 = persomanga4)
 
-        # Tweets avec images (rappeurs)
 
-        rappeur1 = rappeur1.lower() + '.png'
-        rappeur2 = rappeur2.lower() + '.png'
-        rappeur3 = rappeur3.lower() + '.png'
-        rappeur4 = rappeur4.lower() + '.png'
-        filenames = []
-        local = locals()
-
-        # Mettre le nom de chaque rappeur dans la liste filenames
-
-        if tweet.count('rappeur4') >= 1:
-            for i in range(1,5):
-                filenames.append(local['rappeur' + str(i)])
-
-        elif tweet.count('rappeur3') >= 1:
-            for i in range(1,4):
-                filenames.append(local['rappeur' + str(i)])
-
-        elif tweet.count('rappeur2') >= 1:
-            for i in range(1,3):
-                filenames.append(local['rappeur' + str(i)])
-
-        elif tweet.count('rappeur1') >= 1:
-            filenames = rappeur1
+        rappeurimg = imgs(tweet,'rappeur')
+        print(rappeurimg)
+        if not(rappeurimg):
+                twt = client.create_tweet(text=tweet)
+                print('https://twitter.com/iahuiss/status/' + twt.data['id'])
+                print(tweet)
         else:
             pass
-
-        media_ids = []
-
-        if tweet.count('rappeur1') >= 1:
-            if tweet.count('rappeur2') >= 1:
-
-                # Upload sur le "Media Studio" chaque nom et met leur "media id" dans la liste media_ids
-
-                for i in filenames:
-                    res = API.media_upload(filename='temp', file=open('./rappeurs/' + i, 'rb'))
-                    media_ids.append(res.media_id)
-                    time.sleep(1)
-
-            else:
-                res = API.simple_upload(filename='temp', file=open('./rappeurs/' + filenames, 'rb'))
-
-            twt = client.create_tweet(text=tweet, media_ids=media_ids)
-        else:
-            twt = client.create_tweet(text=tweet)
-        print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
-        print(tweet)
 
     elif choix == "screen":
         screen = API.simple_upload(filename='temp', file='./screens-chansons/' + random.choice(screens_chansons))
@@ -208,7 +224,12 @@ def choose():
 
 
 if __name__ == '__main__':
-
+    print(open('ascii-art.txt','r').read())
     while 1:
-        choose()
-        time.sleep(random.randint(5400, 10080))
+        try:
+            choose()
+        except Exception:
+            print(Exception)
+        next = random.randint(5400, 10080)
+        print('Nouveau Tweet dans ' + datetime.timedelta(next))
+        time.sleep(next)
