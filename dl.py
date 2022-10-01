@@ -1,3 +1,5 @@
+import random
+
 import tweepy
 
 CONSUMER_KEY = "i7aR4bJ7g2j2FJ0NOTMm4EqIJ"
@@ -18,4 +20,8 @@ client = tweepy.Client(consumer_key=CONSUMER_KEY,
                        access_token=ACCESS_KEY,
                        access_token_secret=ACCESS_SECRET)
 
-print(client.get)
+aliases = {}
+
+for i in range(5):
+    a = str(i)
+    aliases[a] = aliases[a]

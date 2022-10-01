@@ -3,10 +3,9 @@ import random
 import time
 import tweepy
 
-
 # Importer les tokens de l'API
 
-CREDENTIALS = json.loads(open('credentials.json',encoding='utf-8').read())
+CREDENTIALS = json.loads(open('credentials.json', encoding='utf-8').read())
 
 CONSUMER_KEY = CREDENTIALS['key']
 CONSUMER_SECRET = CREDENTIALS['secret_key']
@@ -27,45 +26,40 @@ client = tweepy.Client(consumer_key=CONSUMER_KEY,
                        access_token_secret=ACCESS_SECRET
                        )
 
+# Je charge tous les json sur le programme
 
-aliases_format = json.loads(open('aliases-format.json',encoding="utf-8").read())
 
-listecategories = [1,2]
+# OBJETS
+
+films = json.loads(open('films.json', encoding='utf-8').read())
+series = json.loads(open('series.json', encoding='utf-8').read())
+rappeurs = json.loads(open('rappeurs.json', encoding='utf-8').read())
+albums = json.loads(open('albums.json', encoding='utf-8').read())
+chansons = json.loads(open('chansons.json', encoding='utf-8').read())
+mangas = json.loads(open('mangas.json', encoding='utf-8').read())
+persosmangas = json.loads(open('persosmangas.json', encoding='utf-8').read())
+streameurs = json.loads(open('streameurs.json', encoding='utf-8').read())
+twittos = json.loads(open('twittos.json', encoding='utf-8').read())
+youtubeurs = json.loads(open('youtubeurs.json', encoding='utf-8').read())
+villes = json.loads(open('villes.json', encoding='utf-8').read())
+
+
+# FORMATS
+
+tweetdivers = json.loads(open('tweetdivers.json', encoding='utf-8').read())
+
+
+odds = [1, 2]
 
 
 def choose():
+    choix = random.choices(odds, weights=(90,10))
+    print(choix[0])
 
-    # Je charge tous les json sur le programme
-
-
-    # OBJETS
-
-    films = json.loads(open('films.json', encoding='utf-8').read())
-
-    series = json.loads(open('series.json', encoding='utf-8').read())
-
-    rappeurs = json.loads(open('rappeurs.json', encoding='utf-8').read())
-    albums = json.loads(open('albums.json', encoding='utf-8').read())
-    chansons = json.loads(open('chansons.json', encoding='utf-8').read())
-
-    mangas = json.loads(open('mangas.json', encoding='utf-8').read())
-    persosmangas = json.loads(open('persosmangas.json', encoding='utf-8').read())
-
-    streameurs = json.loads(open('streameurs.json', encoding='utf-8').read())
-    twittos = json.loads(open('twittos.json', encoding='utf-8').read())
-    youtubeurs = json.loads(open('youtubeurs.json', encoding='utf-8').read())
-    villes = json.loads(open('villes.json', encoding='utf-8').read())
-
-    # FORMATS
-
-    tweetdivers = json.loads(open('tweetdivers.json', encoding='utf-8').read())
-
-    count = 0
-
-    choix = random.choices(listecategories,weights=(90,10),k=1)
-
-    if choix == 1:
+    if choix[0] == 1:
         #   Randomisation des objets
+        objets = ['yt', 'ville', 'rappeur', 'twittos', 'streamer', 'musique', 'album', 'film', 'serie', 'manga',
+                  'persomanga']
 
         yt1 = random.choice(youtubeurs)
         yt2 = random.choice(youtubeurs)
@@ -111,55 +105,54 @@ def choose():
         persomanga2 = random.choice(persosmangas)
         persomanga3 = random.choice(persosmangas)
         persomanga4 = random.choice(persosmangas)
-        
+
+
         # Creation du tweet
 
-        tweet = random.choice(tweetdivers).format(**aliases_format)
+        tweet = random.choice(tweetdivers).format()
 
         # Tweets avec images (rappeurs)
 
-        
         rappeur1 = rappeur1.lower() + '.png'
         rappeur2 = rappeur2.lower() + '.png'
         rappeur3 = rappeur3.lower() + '.png'
         rappeur4 = rappeur4.lower() + '.png'
         filenames = []
-        rappeurs = locals()
+        local = locals()
 
         # Mettre le nom de chaque rappeur dans la liste filenames
 
         if tweet.count('rappeur4') >= 1:
-            for i in range(4):
-                filenames.append(rappeurs['rappeur' + str(i)])
+            for i in range(1,5):
+                filenames.append(local['rappeur' + str(i)])
 
         elif tweet.count('rappeur3') >= 1:
-            for i in range(3):
-                filenames.append(rappeurs['rappeur' + str(i)])
+            for i in range(1,4):
+                filenames.append(local['rappeur' + str(i)])
 
         elif tweet.count('rappeur2') >= 1:
-            for i in range(2):
-                filenames.append(rappeurs['rappeur' + str(i)])
+            for i in range(1,3):
+                filenames.append(local['rappeur' + str(i)])
 
         elif tweet.count('rappeur1') >= 1:
             filenames = rappeur1
         else:
             pass
 
-
         media_ids = []
 
         if tweet.count('rappeur1') >= 1:
             if tweet.count('rappeur2') >= 1:
 
-                    # Upload sur le "Media Studio" chaque nom et met leur "media id" dans la liste media_ids
+                # Upload sur le "Media Studio" chaque nom et met leur "media id" dans la liste media_ids
 
                 for i in filenames:
-                    res = API.media_upload(filename='temp',file=open('./rappeurs/' + i, 'rb'))
+                    res = API.media_upload(filename='temp', file=open('./rappeurs/' + i, 'rb'))
                     media_ids.append(res.media_id)
                     time.sleep(1)
 
             else:
-                res = API.simple_upload(filename='temp',file=open('./rappeurs/' + filenames, 'rb'))
+                res = API.simple_upload(filename='temp', file=open('./rappeurs/' + filenames, 'rb'))
 
             twt = client.create_tweet(text=tweet, media_ids=media_ids)
         else:
@@ -167,9 +160,13 @@ def choose():
         print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
         print(tweet)
 
+    elif choix == 2:
+        pass
+
 
 if __name__ == '__main__':
-    while 1:
-        
+
+    choose()
+    '''while 1:
         choose()
-        time.sleep(random.randint(5400, 10080))
+        time.sleep(random.randint(5400, 10080))'''
