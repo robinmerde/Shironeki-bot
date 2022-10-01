@@ -207,7 +207,6 @@ def choose():
 
 if __name__ == '__main__':
 
-    choose()
-    '''while 1:
+    while 1:
         choose()
-        time.sleep(random.randint(5400, 10080))'''
+        time.sleep(random.randint(5400, 10080))
