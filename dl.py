@@ -18,4 +18,4 @@ client = tweepy.Client(consumer_key=CONSUMER_KEY,
                        access_token=ACCESS_KEY,
                        access_token_secret=ACCESS_SECRET)
 
-client.create_tweet(text="Orelsan : le mec le plus gentil de monde je jure que c'est troooop une crème\ncortex91crime : pareil, trop humble jlaime trop")
+print(client.get)
