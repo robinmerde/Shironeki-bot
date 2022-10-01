@@ -130,18 +130,20 @@ def choose():
 
         if tweet.count('rappeur4') >= 1:
             for i in range(4):
-                filenames.append(rappeurs['rappeur' + i])
+                filenames.append(rappeurs['rappeur' + str(i)])
 
         elif tweet.count('rappeur3') >= 1:
             for i in range(3):
-                filenames.append(rappeurs['rappeur' + i])
+                filenames.append(rappeurs['rappeur' + str(i)])
 
         elif tweet.count('rappeur2') >= 1:
             for i in range(2):
-                filenames.append(rappeurs['rappeur' + i])
+                filenames.append(rappeurs['rappeur' + str(i)])
 
         elif tweet.count('rappeur1') >= 1:
             filenames = rappeur1
+        else:
+            pass
 
 
         media_ids = []
@@ -168,9 +170,6 @@ def choose():
 
 if __name__ == '__main__':
     while 1:
-        try:
-            choose()
-            time.sleep(random.randint(5400, 10080))
-        except:
-            pass
-
+        
+        choose()
+        time.sleep(random.randint(5400, 10080))
