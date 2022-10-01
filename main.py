@@ -63,7 +63,6 @@ def imgs(tweet,object):
         filenames = []
         global upl
         # Mettre le nom de chaque rappeur dans la liste filenames
-        print(tweet)
 
         if rawtweet.count(object + '4') >= 1:
             for i in range(1,5):
@@ -87,16 +86,13 @@ def imgs(tweet,object):
 
         if rawtweet.count(object + '1') >= 1:
             if rawtweet.count(object + '2') >= 1:
-                print(filenames)
                 for filename in filenames:
-                    print(path + filename)
                     upl = API.media_upload(filename='temp', file=open(path + filename, 'rb'))
                     media_ids.append(upl.media_id)
                     time.sleep(0.1)
             else:
                 upl = API.media_upload(filename='temp',file=open(path + mamapizza[object+'1'], 'rb'))
                 media_ids = [upl.media_id]
-                print(media_ids)
             twt = client.create_tweet(text=tweet, media_ids=media_ids)
             print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
             print(tweet)
@@ -212,7 +208,6 @@ def choose():
 
 
         rappeurimg = imgs(tweet,'rappeur')
-        print(rappeurimg)
         if not(rappeurimg):
                 twt = client.create_tweet(text=tweet)
                 print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
