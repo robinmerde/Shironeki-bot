@@ -28,7 +28,7 @@ listecategories = [1, 2, 3, 4]
 def choose():
     count = 0
     #   choix = random.choices(listecategories,weights=(25,25,25,25),k=1)
-    choix = random.randint(1,5)
+    choix = 1
     if choix == 5:
         yt1 = random.choice(youtubeurs)
         yt2 = random.choice(youtubeurs)
@@ -161,6 +161,6 @@ if __name__ == '__main__':
     while 1:
         try:
             choose()
-            time.sleep(5)
+            time.sleep(1)
         except:
             pass
