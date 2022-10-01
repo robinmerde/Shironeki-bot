@@ -7,7 +7,7 @@ import datetime
 
 # Importer les tokens de l'API
 
-CREDENTIALS = json.loads(open('Q:\home\pi\Documents\Shironeutron-credentials\credentials.json', encoding='utf-8').read())
+CREDENTIALS = json.loads(open('credentials.json', encoding='utf-8').read())
 
 CONSUMER_KEY = CREDENTIALS['key']
 CONSUMER_SECRET = CREDENTIALS['key_secret']
@@ -97,7 +97,9 @@ def imgs(tweet,object):
                 upl = API.media_upload(filename='temp',file=open(path + mamapizza[object+'1'], 'rb'))
                 media_ids = [upl.media_id]
                 print(media_ids)
-            client.create_tweet(text=tweet, media_ids=media_ids)
+            twt = client.create_tweet(text=tweet, media_ids=media_ids)
+            print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
+            print(tweet)
             
             return True
         else:
@@ -213,7 +215,7 @@ def choose():
         print(rappeurimg)
         if not(rappeurimg):
                 twt = client.create_tweet(text=tweet)
-                print('https://twitter.com/iahuiss/status/' + twt.data['id'])
+                print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
                 print(tweet)
         else:
             pass
@@ -230,6 +232,9 @@ if __name__ == '__main__':
             choose()
         except Exception:
             print(Exception)
+                
         next = random.randint(5400, 10080)
-        print('Nouveau Tweet dans ' + datetime.timedelta(next))
+        minutes, seconds = divmod(next, 60)
+        hours, minutes = divmod(minutes, 60)
+        print("Nouveau Tweet dans %d:%02d:%02d" % (hours, minutes, seconds))
         time.sleep(next)
