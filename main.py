@@ -58,8 +58,6 @@ def choose():
 
     if choix[0] == 1:
         #   Randomisation des objets
-        objets = ['yt', 'ville', 'rappeur', 'twittos', 'streamer', 'musique', 'album', 'film', 'serie', 'manga',
-                  'persomanga']
 
         yt1 = random.choice(youtubeurs)
         yt2 = random.choice(youtubeurs)
@@ -109,7 +107,50 @@ def choose():
 
         # Creation du tweet
 
-        tweet = random.choice(tweetdivers).format()
+        tweet = random.choice(tweetdivers).format(yt1 = yt1,
+    yt2 = yt2,
+    yt3 = yt3,
+    yt4 = yt4,
+    ville1 = ville1,
+    ville2 = ville2,
+    ville3 = ville3,
+    ville4 = ville4,
+    rappeur1 = rappeur1,
+    rappeur2 = rappeur2,
+    rappeur3 = rappeur3,
+    rappeur4 = rappeur4,
+    twittos1 = twittos1,
+    twittos2 = twittos2,
+    twittos3 = twittos3,
+    twittos4 = twittos4,
+    streamer1 = streamer1,
+    streamer2 = streamer2,
+    streamer3 = streamer3,
+    streamer4 = streamer4,
+    musique1 = musique1,
+    musique2 = musique2,
+    musique3 = musique3,
+    musique4 = musique4,
+    album1 = album1,
+    album2 = album2,
+    album3 = album3,
+    album4 = album4,
+    film1 = film1,
+    film2 = film2,
+    film3 = film3,
+    film4 = film4,
+    serie1 = serie1,
+    serie2 = serie2,
+    serie3 = serie3,
+    serie4 = serie4,
+    manga1 = manga1,
+    manga2 = manga2,
+    manga3 = manga3,
+    manga4 = manga4,
+    persomanga1 = persomanga1,
+    persomanga2 = persomanga2,
+    persomanga3 = persomanga3,
+    persomanga4 = persomanga4)
 
         # Tweets avec images (rappeurs)
 
