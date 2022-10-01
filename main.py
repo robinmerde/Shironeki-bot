@@ -2,10 +2,11 @@ import json
 import random
 import time
 import tweepy
+import os
 
 # Importer les tokens de l'API
 
-CREDENTIALS = json.loads(open('credentials.json', encoding='utf-8').read())
+CREDENTIALS = json.loads(open('Q:\home\pi\Documents\Shironeutron-credentials\credentials.json', encoding='utf-8').read())
 
 CONSUMER_KEY = CREDENTIALS['key']
 CONSUMER_SECRET = CREDENTIALS['secret_key']
@@ -43,20 +44,20 @@ twittos = json.loads(open('twittos.json', encoding='utf-8').read())
 youtubeurs = json.loads(open('youtubeurs.json', encoding='utf-8').read())
 villes = json.loads(open('villes.json', encoding='utf-8').read())
 
-
+screens_chansons = os.listdir("./screens-chansons/")
 # FORMATS
 
 tweetdivers = json.loads(open('tweetdivers.json', encoding='utf-8').read())
 
 
-odds = [1, 2]
+odds = ['tweet', 'screen']
 
 
 def choose():
-    choix = random.choices(odds, weights=(90,10))
+    choix = random.choices(odds, weights=(100,10))
     print(choix[0])
 
-    if choix[0] == 1:
+    if choix[0] == 'tweet':
         #   Randomisation des objets
 
         yt1 = random.choice(youtubeurs)
@@ -201,8 +202,9 @@ def choose():
         print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
         print(tweet)
 
-    elif choix == 2:
-        pass
+    elif choix == "screen":
+        screen = API.simple_upload(filename='temp', file='./screens-chansons/' + random.choice(screens_chansons))
+        client.create_tweet(media_ids=screen.media_ids)
 
 
 if __name__ == '__main__':
