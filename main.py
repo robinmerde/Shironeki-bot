@@ -1,6 +1,7 @@
 import json
 import random
 import time
+from tkinter.messagebox import RETRY
 import tweepy
 import os
 import datetime
@@ -227,6 +228,7 @@ if __name__ == '__main__':
             choose()
         except Exception:
             print(Exception)
+            pass
                 
         next = random.randint(5400, 10080)
         minutes, seconds = divmod(next, 60)
