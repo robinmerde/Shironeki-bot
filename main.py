@@ -29,6 +29,7 @@ client = tweepy.Client(consumer_key=CONSUMER_KEY,
                        access_token_secret=ACCESS_SECRET
                        )
 
+
 # Je charge tous les json sur le programme
 
 
