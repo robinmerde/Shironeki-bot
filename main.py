@@ -1,7 +1,6 @@
 import json
 import random
 import time
-from tkinter.messagebox import RETRY
 import tweepy
 import os
 import datetime
@@ -85,7 +84,7 @@ def imgs(tweet,object):
 
         media_ids = []
         path = './' + object + '/'
-
+        tweet = tweet.partition('~')[0]
         if rawtweet.count(object + '1') >= 1:
             if rawtweet.count(object + '2') >= 1:
                 for filename in filenames:
@@ -109,7 +108,7 @@ def choose():
 
     if choix[0] == 'tweet':
         #   Randomisation des objets
-        global rawtweet, rappeur1, rappeur2, rappeur3, rappeur4
+        global rawtweet, rappeur1, rappeur2, rappeur3, rappeur4, imgpersomanga1, imgpersomanga2, imgpersomanga3, imgpersomanga4
         yt1 = random.choice(youtubeurs)
         yt2 = random.choice(youtubeurs)
         yt3 = random.choice(youtubeurs)
@@ -205,12 +204,17 @@ def choose():
             persomanga1 = persomanga1,
             persomanga2 = persomanga2,
             persomanga3 = persomanga3,
-            persomanga4 = persomanga4)
+            persomanga4 = persomanga4,
+            imgpersomanga1 = imgpersomanga1,
+            imgpersomanga2 = imgpersomanga2,
+            imgpersomanga3 = imgpersomanga3,
+            imgpersomanga4 = imgpersomanga4)
 
 
 
         rappeurimg = imgs(tweet,'rappeur')
-        if not(rappeurimg):
+        persomangaimg = imgs(tweet, 'imgpersomanga')
+        if not(rappeurimg or persomangaimg):
                 twt = client.create_tweet(text=tweet)
                 print('https://twitter.com/Shironeutron/status/' + twt.data['id'])
                 print(tweet)
@@ -219,7 +223,7 @@ def choose():
 
     elif choix == "screen":
         screen = API.simple_upload(filename='temp', file='./screens-chansons/' + random.choice(screens_chansons))
-        client.create_tweet(media_ids=screen.media_ids)
+        client.create_tweet(text='',media_ids=screen.media_ids)
 
 
 if __name__ == '__main__':
@@ -233,5 +237,5 @@ if __name__ == '__main__':
             print("Nouveau Tweet dans %d:%02d:%02d" % (hours, minutes, seconds))
             time.sleep(next)
         except Exception:
+            print('EXCEPTION LA HONTE COUILLON')
             continue
-        
