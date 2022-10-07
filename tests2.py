@@ -22,5 +22,4 @@ client = tweepy.Client(consumer_key=CONSUMER_KEY,
                        access_token_secret=ACCESS_SECRET
                        )
 
-tweet = 'papaapa~ la coupe'.partition('~')[0]
-print(tweet, type(tweet))
+tweet = 'papaapa~ la coupe'.partition('~')
